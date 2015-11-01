@@ -1,0 +1,70 @@
+<head>
+    <title>Flims</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  {{> filmList}}
+  {{> filmDetail}}
+  {{> add}}
+</body>
+
+<template name="filmList">
+    <div data-role="page" id="film-list">
+        <div data-role="header">
+            <h1>Films</h1>
+            <a href="#add" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-plus">Add</a>
+        </div><!-- /header -->
+
+        <div role="main" class="ui-content">
+            <ul data-role="listview" id="filmList" class="ui-listview">
+              {{#each films}}
+                  <li class="ui-li-has-thumb">
+                      <a href="#film-detail?filmId={{_id}}" data-rel="back" class="ui-btn ui-btn-icon-right ui-icon-carat-r">
+                          <img src="{{avatarUrl}}">
+                          <h2>{{title}}</h2>
+                      </a>
+                  </li>
+              {{/each}}
+            </ul>
+        </div><!-- /content -->
+    </div>
+</template>
+
+<template name="filmDetail">
+    <div data-role="page" id="film-detail">
+        <div data-role="header">
+            <h1>{{currentFilm.title}}</h1>
+            <a href="#remove" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete" id="remove">Remove</a>
+        </div><!-- /header -->
+
+        <div role="main" class="ui-content">
+            <h1>{{currentFilm.title}} <small><a href="//www.imdb.com/title/{{currentFilm.imdbid}}/">IMDB</a></small></h1>
+            <img src="{{currentFilm.avatarUrl}}" width="100%">
+            <p>{{currentFilm.description}}</p>
+        </div><!-- /content -->
+    </div>
+</template>
+
+<template name="add">
+    <div data-role="page" id="add">
+        <div data-role="header">
+            <h1>Voeg film toe</h1>
+        </div><!-- /header -->
+
+        <div role="main" class="ui-content">
+            <input type="search" id="addFilmSearchField">
+            <ul data-role="listview" id="addFilmSearchList" class="ui-listview">
+              {{#each searchResults}}
+                  <li class="ui-li-has-thumb">
+                      <a href="#film-detail?filmId={{_id}}" data-rel="back" class="ui-btn ui-btn-icon-right ui-icon-carat-r">
+                          <img src="{{avatarUrl}}">
+                          <h2>{{title}}</h2>
+                          <p>{{description}}</p>
+                      </a>
+                  </li>
+              {{/each}}
+            </ul>
+        </div><!-- /content -->
+    </div>
+</template>
